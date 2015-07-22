@@ -35,7 +35,8 @@ public class CopieZoom implements ICopie {
 	 */
 	@Override
 	public void copier(double zoom, Point translation) {
-		// TODO Écrire le code de la méthode.
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

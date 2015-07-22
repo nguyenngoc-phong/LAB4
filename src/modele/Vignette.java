@@ -44,22 +44,4 @@ public class Vignette extends Observable implements ActionListener, Serializable
 		// TODO Écrire le code de la méthode.
 	}
 	
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	public Image getImage() {
-		return image;
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	public void setImage(Image image) {
-		this.image = image;
-	}
-	
 }

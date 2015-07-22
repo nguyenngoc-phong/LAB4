@@ -20,6 +20,9 @@ Historique des modifications
 package modele;
 
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Observable;
 
@@ -32,7 +35,7 @@ public class Perspective extends Observable implements Serializable {
 	
 	private Image image;
 	private double zoom;
-	private int translation;
+	private Point translation;
 
 	/**
 	 * Description de la méthode.
@@ -95,7 +98,7 @@ public class Perspective extends Observable implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public int getTranslation() {
+	public Point getTranslation() {
 		return translation;
 	}
 
@@ -104,7 +107,7 @@ public class Perspective extends Observable implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void setTranslation(int translation) {
+	public void setTranslation(Point translation) {
 		this.translation = translation;
 	}
 	

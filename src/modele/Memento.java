@@ -19,40 +19,30 @@ Historique des modifications
 
 package modele;
 
+import java.awt.Point;
+
 /**
 * Description de la classe.
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
 public class Memento {
-
+	
 	private double zoom;
-	private int translation;
+	private Point translation;
 	
 	/**
 	 * Constructeur
 	 */
-	public Memento(double zoom, int translation) {
+	public Memento(double zoom, Point translation) {
 		this.zoom = zoom;
 		this.translation = translation;
 	}
 	
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
 	public double getZoom() {
 		return zoom;
 	}
-	
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	public int getTranslation() {
+	public Point getTranslation() {
 		return translation;
 	}
-	
 }

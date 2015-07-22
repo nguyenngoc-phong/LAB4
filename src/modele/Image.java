@@ -7,7 +7,7 @@ Projet: Laboratoire #4
               
               
 Professeur: Francis Cardinal
-Nom du fichier: ApplicationImage.java
+Nom du fichier: Image.java
 Date créé: 2015-07-17
 Date dern. modif.: 2015-07-17
 *******************************************************
@@ -17,23 +17,29 @@ Historique des modifications
 2015-07-17 Version initiale
 *******************************************************/
 
-package vue;
+package modele;
 
-import controleur.Controleur;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
 
 /**
 * Description de la classe.
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class ApplicationImage {
+public class Image extends Observable implements ActionListener {
 	
-	private FenetrePrincipale fenetre;
-	private Controleur controleur;
+	private Vignette image;
 	
-	public ApplicationImage() {
-		this.controleur = new Controleur();
-		this.fenetre = new FenetrePrincipale(controleur);
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Écrire le code de la méthode.
 	}
 	
 }

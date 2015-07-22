@@ -7,7 +7,7 @@ Projet: Laboratoire #4
               
               
 Professeur: Francis Cardinal
-Nom du fichier: ApplicationImage.java
+Nom du fichier: PanelImage.java
 Date créé: 2015-07-17
 Date dern. modif.: 2015-07-17
 *******************************************************
@@ -19,21 +19,28 @@ Historique des modifications
 
 package vue;
 
-import controleur.Controleur;
+import java.util.Observable;
+import java.util.Observer;
+
+import modele.Vignette;
 
 /**
 * Description de la classe.
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class ApplicationImage {
+public class PanelImage implements Observer {
 	
-	private FenetrePrincipale fenetre;
-	private Controleur controleur;
+	private Vignette image;
 	
-	public ApplicationImage() {
-		this.controleur = new Controleur();
-		this.fenetre = new FenetrePrincipale(controleur);
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Écrire le code de la méthode.
 	}
 	
 }

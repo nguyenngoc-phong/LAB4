@@ -132,7 +132,7 @@ public class Controleur implements Observer, PropertyChangeListener {
 	public void update(Observable arg0, Object arg1) {
 		// TODO Écrire le code de la méthode.
 	}
-	
+
 	/**
 	 * Description de la méthode.
 	 * @param

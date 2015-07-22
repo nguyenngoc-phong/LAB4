@@ -32,8 +32,8 @@ import modele.Perspective;
 */
 public class PanelPerspective implements Observer {
 	
-	private Controleur controleur;
 	private Perspective perspective;
+	private Controleur controleur;
 	
 	/**
 	 * Constructeur

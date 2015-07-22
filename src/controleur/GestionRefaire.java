@@ -31,7 +31,7 @@ import modele.Memento;
 public class GestionRefaire {
 	
 	private ArrayList<Memento> tabMemento;
-	private final int MAX_MEMENTO = 10;
+	private final int MAX_MEMENTOS = 10;
 	
 	/**
 	 * Constructeur

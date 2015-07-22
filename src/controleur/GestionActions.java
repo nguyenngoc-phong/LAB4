@@ -20,6 +20,7 @@ Historique des modifications
 package controleur;
 
 import java.awt.Point;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.Action;
@@ -32,16 +33,16 @@ import javax.swing.Action;
 public class GestionActions {
 	
 	private GestionActions uniqueInstance;
-	private ArrayList<Action> tabActionsA;
-	private ArrayList<Action> tabActionsB;
+	private ArrayList<Action> tabActions1;
+	private ArrayList<Action> tabActions2;
 	private final int MAX_ACTIONS = 10;
 	
 	/**
 	 * Constructeur
 	 */
 	private GestionActions() {
-		tabActionsA = new ArrayList<Action>();
-		tabActionsB = new ArrayList<Action>();
+		tabActions1 = new ArrayList<Action>();
+		tabActions2 = new ArrayList<Action>();
 	}
 	
 	/**
@@ -59,7 +60,7 @@ public class GestionActions {
 	 * @param
 	 * @return
 	 */
-	public void ajouterAction(char perspective, char typeAction, Object param) {
+	public void ajouterAction(int numPerspective, char typeAction, Object param, PropertyChangeListener observateur) {
 		Action nvAction;
 		
 		if (typeAction == 'T') {
@@ -69,18 +70,20 @@ public class GestionActions {
 			nvAction = new Zoom((double) param);
 		}
 		
-		if(perspective == 'A') {
-			tabActionsA.add(nvAction);
+		nvAction.addPropertyChangeListener(observateur);
+		
+		if(numPerspective == 1) {
+			tabActions1.add(nvAction);
 			
-			if(tabActionsA.size() > 10) {
-				tabActionsA.remove(0);
+			if(tabActions1.size() > 10) {
+				tabActions1.remove(0);
 			}
 		}
 		else {
-			tabActionsB.add(nvAction);
+			tabActions2.add(nvAction);
 			
-			if(tabActionsB.size() > 10) {
-				tabActionsB.remove(0);
+			if(tabActions2.size() > 10) {
+				tabActions2.remove(0);
 			}
 		}
 	}
@@ -90,12 +93,12 @@ public class GestionActions {
 	 * @param
 	 * @return
 	 */
-	public void enleverDerniereAction(char perspective) {
-		if(perspective == 'A') {
-			tabActionsA.remove(tabActionsA.size() - 1);
+	public void enleverDerniereAction(int numPerspective) {
+		if(numPerspective == 1) {
+			tabActions1.remove(tabActions1.size() - 1);
 		}
 		else {
-			tabActionsB.remove(tabActionsB.size() - 1);
+			tabActions2.remove(tabActions2.size() - 1);
 		}
 	}
 	

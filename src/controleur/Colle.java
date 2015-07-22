@@ -25,12 +25,7 @@ package controleur;
 * @date 2015/07/17
 */
 public class Colle {
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
+	
 	public void coller() {
 		// TODO Écrire le code de la méthode.
 	}

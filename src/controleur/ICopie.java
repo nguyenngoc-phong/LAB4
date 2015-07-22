@@ -27,6 +27,9 @@ import java.awt.Point;
 * @date 2015/07/17
 */
 public interface ICopie {
+	
+	public double zoom = 0;
+	public Point translation = new Point();
 
 	/**
 	 * Description de la méthode.

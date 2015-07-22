@@ -19,6 +19,8 @@ Historique des modifications
 
 package vue;
 
+import javax.swing.JPanel;
+
 import controleur.Controleur;
 
 /**
@@ -26,15 +28,33 @@ import controleur.Controleur;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class MenuFenetre {
+public class MenuFenetre extends JPanel {
 	
 	private Controleur controleur;
-
+	
 	/**
 	 * Constructeur
 	 */
 	public MenuFenetre(Controleur controleur) {
 		this.controleur = controleur;
+	}
+
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	private void addMenuFichier() {
+		
+	}
+
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	private void addMenuAction() {
+		
 	}
 	
 }
