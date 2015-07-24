@@ -32,7 +32,8 @@ import javax.swing.Action;
 * @date 2015/07/17
 */
 public class Zoom implements Action {
-	
+
+	private char indexPerspective;
 	private double echelleZoom;
 	private ArrayList<PropertyChangeListener> tabObservateurs;
 	private boolean enabled;
@@ -42,7 +43,8 @@ public class Zoom implements Action {
 	 * @param
 	 * @return
 	 */
-	public Zoom(double nvEchelleZoom) {
+	public Zoom(char nvIndexPerspective, double nvEchelleZoom) {
+		indexPerspective = nvIndexPerspective;
 		echelleZoom = nvEchelleZoom;
 		tabObservateurs = new ArrayList<PropertyChangeListener>();
 		enabled = true;
@@ -55,7 +57,6 @@ public class Zoom implements Action {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		notify();
 	}
 
 	/**
@@ -75,7 +76,13 @@ public class Zoom implements Action {
 	 */
 	@Override
 	public Object getValue(String arg0) {
-		return echelleZoom;
+		if(arg0.equals("indexPerspective")) {
+			return indexPerspective;
+		}
+		else if(arg0.equals("echelleZoom")) {
+			return echelleZoom;
+		}
+		return null;
 	}
 
 	/**
@@ -116,6 +123,11 @@ public class Zoom implements Action {
 	@Override
 	public void setEnabled(boolean arg0) {
 		enabled = arg0;
+		
+		if(!(enabled)) {
+			echelleZoom = -(echelleZoom);
+			notify();
+		}
 	}
 	
 }

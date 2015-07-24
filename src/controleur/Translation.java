@@ -32,7 +32,8 @@ import javax.swing.Action;
 * @date 2015/07/17
 */
 public class Translation implements Action {
-	
+
+	private char indexPerspective;
 	private Point coordTranslation;
 	private ArrayList<PropertyChangeListener> tabObservateurs;
 	private boolean enabled;
@@ -42,10 +43,10 @@ public class Translation implements Action {
 	 * @param
 	 * @return
 	 */
-	public Translation(Point nvCoordTranslation) {
+	public Translation(char nvIndexPerspective, Point nvCoordTranslation) {
+		indexPerspective = nvIndexPerspective;
 		coordTranslation = nvCoordTranslation;
 		tabObservateurs = new ArrayList<PropertyChangeListener>();
-		enabled = true;
 	}
 	
 	/**
@@ -55,7 +56,6 @@ public class Translation implements Action {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		notify();
 	}
 
 	/**
@@ -75,7 +75,13 @@ public class Translation implements Action {
 	 */
 	@Override
 	public Object getValue(String arg0) {
-		return coordTranslation;
+		if(arg0.equals("indexPerspective")) {
+			return indexPerspective;
+		}
+		else if(arg0.equals("coordTranslation")) {
+			return coordTranslation;
+		}
+		return null;
 	}
 
 	/**
@@ -116,6 +122,12 @@ public class Translation implements Action {
 	@Override
 	public void setEnabled(boolean arg0) {
 		enabled = arg0;
+		
+		if(!(enabled)) {
+			coordTranslation.x = -(coordTranslation.x);
+			coordTranslation.y = -(coordTranslation.y);
+			notify();
+		}
 	}
 	
 }

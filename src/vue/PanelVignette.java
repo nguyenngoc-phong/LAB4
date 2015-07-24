@@ -32,7 +32,7 @@ import modele.Vignette;
 */
 public class PanelVignette implements Observer {
 	
-	private Vignette vignette;
+	private Image image;
 	
 	/**
 	 * Description de la méthode.

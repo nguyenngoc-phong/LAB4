@@ -19,6 +19,7 @@ Historique des modifications
 
 package vue;
 
+import java.awt.Image;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,7 +33,7 @@ import modele.Perspective;
 */
 public class PanelPerspective implements Observer {
 	
-	private Perspective perspective;
+	private Image image;
 	private Controleur controleur;
 	
 	/**

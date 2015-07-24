@@ -33,16 +33,16 @@ import javax.swing.Action;
 public class GestionActions {
 	
 	private GestionActions uniqueInstance;
-	private ArrayList<Action> tabActions1;
-	private ArrayList<Action> tabActions2;
+	private ArrayList<Action> tabActionsA;
+	private ArrayList<Action> tabActionsB;
 	private final int MAX_ACTIONS = 10;
 	
 	/**
 	 * Constructeur
 	 */
 	private GestionActions() {
-		tabActions1 = new ArrayList<Action>();
-		tabActions2 = new ArrayList<Action>();
+		tabActionsA = new ArrayList<Action>();
+		tabActionsB = new ArrayList<Action>();
 	}
 	
 	/**
@@ -60,30 +60,35 @@ public class GestionActions {
 	 * @param
 	 * @return
 	 */
-	public void ajouterAction(int numPerspective, char typeAction, Object param, PropertyChangeListener observateur) {
-		Action nvAction;
+	public void ajouterAction(char indexPerspective, char typeAction, Object param, PropertyChangeListener observateur) {
+		Action nvAction = null;
 		
-		if (typeAction == 'T') {
-			nvAction = new Translation((Point) param);
+		switch(typeAction) {
+			case('T'):	nvAction = new Translation(indexPerspective, (Point) param);
+				break;
+			case('Z'):	nvAction = new Zoom(indexPerspective, (double) param);
+				break;
 		}
-		else {
-			nvAction = new Zoom((double) param);
-		}
 		
-		nvAction.addPropertyChangeListener(observateur);
-		
-		if(numPerspective == 1) {
-			tabActions1.add(nvAction);
+		if(nvAction != null) {
 			
-			if(tabActions1.size() > 10) {
-				tabActions1.remove(0);
-			}
-		}
-		else {
-			tabActions2.add(nvAction);
+			nvAction.addPropertyChangeListener(observateur);
 			
-			if(tabActions2.size() > 10) {
-				tabActions2.remove(0);
+			switch(indexPerspective) {
+				case('A'):
+					tabActionsA.add(nvAction);
+					if(tabActionsA.size() > MAX_ACTIONS) {
+						tabActionsA.remove(0);
+						tabActionsA.trimToSize();
+					};
+					break;
+				case('B'):
+					tabActionsB.add(nvAction);
+					if(tabActionsB.size() > MAX_ACTIONS) {
+						tabActionsB.remove(0);
+						tabActionsB.trimToSize();
+					};
+					break;
 			}
 		}
 	}
@@ -93,12 +98,26 @@ public class GestionActions {
 	 * @param
 	 * @return
 	 */
-	public void enleverDerniereAction(int numPerspective) {
-		if(numPerspective == 1) {
-			tabActions1.remove(tabActions1.size() - 1);
-		}
-		else {
-			tabActions2.remove(tabActions2.size() - 1);
+	public void enleverDerniereAction(char indexPerspective) {
+		Action derniereAction;
+		
+		switch(indexPerspective) {
+			case('A'):
+				if(tabActionsA.size() > 0) {
+					derniereAction = tabActionsA.get(tabActionsA.size() - 1);
+					derniereAction.setEnabled(false);
+					tabActionsA.remove(derniereAction);
+					tabActionsA.trimToSize();
+				}
+				break;
+			case('B'):
+				if(tabActionsB.size() > 0) {
+					derniereAction = tabActionsB.get(tabActionsB.size() - 1);
+					derniereAction.setEnabled(false);
+					tabActionsB.remove(derniereAction);
+					tabActionsB.trimToSize();
+				}
+				break;
 		}
 	}
 	

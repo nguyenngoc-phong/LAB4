@@ -30,18 +30,33 @@ import java.util.Observable;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class Vignette extends Observable implements ActionListener, Serializable {
+public class Vignette extends Observable implements Serializable {
 	
 	private Image image;
+	
+	/**
+	 * Constructeur
+	 */
+	public Vignette() {
+		image = null;
+	}
 	
 	/**
 	 * Description de la méthode.
 	 * @param
 	 * @return
 	 */
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Écrire le code de la méthode.
+	public Image getImage() {
+		return image;
+	}
+	
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 }

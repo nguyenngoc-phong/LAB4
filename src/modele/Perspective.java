@@ -31,7 +31,7 @@ import java.util.Observable;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class Perspective extends Observable implements Serializable {
+public class Perspective extends Vignette {
 	
 	private Image image;
 	private double zoom;
