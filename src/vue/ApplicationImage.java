@@ -19,6 +19,8 @@ Historique des modifications
 
 package vue;
 
+import modele.Perspective;
+import modele.Vignette;
 import controleur.Controleur;
 
 /**
@@ -28,12 +30,22 @@ import controleur.Controleur;
 */
 public class ApplicationImage {
 	
+	private Vignette vignette;
+	private Perspective perspectiveA;
+	private Perspective perspectiveB;
 	private FenetrePrincipale fenetre;
 	private Controleur controleur;
 	
 	public ApplicationImage() {
-		this.controleur = new Controleur();
-		this.fenetre = new FenetrePrincipale(controleur);
+		
+		vignette = new Vignette();
+		
+		perspectiveA = new Perspective();
+		perspectiveB = new Perspective();
+		
+		controleur = new Controleur(vignette, perspectiveA, perspectiveB);
+		
+		fenetre = new FenetrePrincipale(controleur);
 	}
 	
 }

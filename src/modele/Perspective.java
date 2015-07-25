@@ -21,10 +21,6 @@ package modele;
 
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.Serializable;
-import java.util.Observable;
 
 /**
 * Description de la classe.
@@ -33,17 +29,27 @@ import java.util.Observable;
 */
 public class Perspective extends Vignette {
 	
+	private static final long serialVersionUID = -2298967121346240971L;
 	private Image image;
-	private double zoom;
-	private Point translation;
-
+	private double echelleZoom;
+	private Point coordTranslation;
+	
+	/**
+	 * Constructeur
+	 */
+	public Perspective() {
+		image = null;
+		echelleZoom = 0;
+		coordTranslation = null;
+	}
+	
 	/**
 	 * Description de la méthode.
 	 * @param
 	 * @return
 	 */
-	public Memento createMemento() {
-		Memento nvMemento = new Memento(zoom, translation);
+	public Memento creerMemento() {
+		Memento nvMemento = new Memento(echelleZoom, coordTranslation);
 		return nvMemento;
 	}
 
@@ -52,9 +58,10 @@ public class Perspective extends Vignette {
 	 * @param
 	 * @return
 	 */
-	public void setMemento(Memento memento) {
-		zoom = memento.getZoom();
-		translation = memento.getTranslation();
+	public void setMemento(Memento unMemento) {
+		echelleZoom = unMemento.getEchelleZoom();
+		coordTranslation = unMemento.getCoordTranslation();
+		notify();
 	}
 
 	/**
@@ -71,8 +78,9 @@ public class Perspective extends Vignette {
 	 * @param
 	 * @return
 	 */
-	public void setImage(Image image) {
-		this.image = image;
+	public void setImage(Image nvImage) {
+		image = nvImage;
+		notify();
 	}
 
 	/**
@@ -80,8 +88,8 @@ public class Perspective extends Vignette {
 	 * @param
 	 * @return
 	 */
-	public double getZoom() {
-		return zoom;
+	public double getEchelleZoom() {
+		return echelleZoom;
 	}
 
 	/**
@@ -89,8 +97,9 @@ public class Perspective extends Vignette {
 	 * @param
 	 * @return
 	 */
-	public void setZoom(double zoom) {
-		this.zoom = zoom;
+	public void setEchelleZoom(double nvEchelleZoom) {
+		echelleZoom = nvEchelleZoom;
+		notify();
 	}
 
 	/**
@@ -98,8 +107,8 @@ public class Perspective extends Vignette {
 	 * @param
 	 * @return
 	 */
-	public Point getTranslation() {
-		return translation;
+	public Point getCoordTranslation() {
+		return coordTranslation;
 	}
 
 	/**
@@ -107,8 +116,9 @@ public class Perspective extends Vignette {
 	 * @param
 	 * @return
 	 */
-	public void setTranslation(Point translation) {
-		this.translation = translation;
+	public void setCoordTranslation(Point nvCoordTranslation) {
+		coordTranslation = nvCoordTranslation;
+		notify();
 	}
 	
 }

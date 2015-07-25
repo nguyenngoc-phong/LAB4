@@ -20,8 +20,6 @@ Historique des modifications
 package modele;
 
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Observable;
 
@@ -32,6 +30,7 @@ import java.util.Observable;
 */
 public class Vignette extends Observable implements Serializable {
 	
+	private static final long serialVersionUID = -2291997349113388136L;
 	private Image image;
 	
 	/**
@@ -55,8 +54,9 @@ public class Vignette extends Observable implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void setImage(Image image) {
-		this.image = image;
+	public void setImage(Image nvImage) {
+		image = nvImage;
+		notify();
 	}
 	
 }

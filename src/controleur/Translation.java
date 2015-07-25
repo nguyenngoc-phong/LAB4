@@ -43,10 +43,12 @@ public class Translation implements Action {
 	 * @param
 	 * @return
 	 */
-	public Translation(char nvIndexPerspective, Point nvCoordTranslation) {
+	public Translation(char nvIndexPerspective, Point nvCoordTranslation, PropertyChangeListener unObservateur) {
 		indexPerspective = nvIndexPerspective;
 		coordTranslation = nvCoordTranslation;
 		tabObservateurs = new ArrayList<PropertyChangeListener>();
+		tabObservateurs.add(unObservateur);
+		enabled = true;
 	}
 	
 	/**
@@ -56,6 +58,7 @@ public class Translation implements Action {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		notify();
 	}
 
 	/**
@@ -81,7 +84,9 @@ public class Translation implements Action {
 		else if(arg0.equals("coordTranslation")) {
 			return coordTranslation;
 		}
-		return null;
+		else {
+			return null;
+		}
 	}
 
 	/**
@@ -101,7 +106,12 @@ public class Translation implements Action {
 	 */
 	@Override
 	public void putValue(String arg0, Object arg1) {
-		coordTranslation = (Point) arg1;
+		if(arg0.equals("indexPerspective")) {
+			indexPerspective = (char) arg1;
+		}
+		else if(arg0.equals("coordTranslation")) {
+			coordTranslation = (Point) arg1;
+		}
 	}
 
 	/**
@@ -122,12 +132,6 @@ public class Translation implements Action {
 	@Override
 	public void setEnabled(boolean arg0) {
 		enabled = arg0;
-		
-		if(!(enabled)) {
-			coordTranslation.x = -(coordTranslation.x);
-			coordTranslation.y = -(coordTranslation.y);
-			notify();
-		}
 	}
 	
 }

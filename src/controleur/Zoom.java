@@ -19,7 +19,6 @@ Historique des modifications
 
 package controleur;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -43,10 +42,11 @@ public class Zoom implements Action {
 	 * @param
 	 * @return
 	 */
-	public Zoom(char nvIndexPerspective, double nvEchelleZoom) {
+	public Zoom(char nvIndexPerspective, double nvEchelleZoom, PropertyChangeListener unObservateur) {
 		indexPerspective = nvIndexPerspective;
 		echelleZoom = nvEchelleZoom;
 		tabObservateurs = new ArrayList<PropertyChangeListener>();
+		tabObservateurs.add(unObservateur);
 		enabled = true;
 	}
 	
@@ -57,6 +57,7 @@ public class Zoom implements Action {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		notify();
 	}
 
 	/**
@@ -82,7 +83,9 @@ public class Zoom implements Action {
 		else if(arg0.equals("echelleZoom")) {
 			return echelleZoom;
 		}
-		return null;
+		else {
+			return null;
+		}
 	}
 
 	/**
@@ -102,7 +105,12 @@ public class Zoom implements Action {
 	 */
 	@Override
 	public void putValue(String arg0, Object arg1) {
-		echelleZoom = (double) arg1;
+		if(arg0.equals("indexPerspective")) {
+			indexPerspective = (char) arg1;
+		}
+		else if(arg0.equals("echelleZoom")) {
+			echelleZoom = (double) arg1;
+		}
 	}
 
 	/**
@@ -123,11 +131,6 @@ public class Zoom implements Action {
 	@Override
 	public void setEnabled(boolean arg0) {
 		enabled = arg0;
-		
-		if(!(enabled)) {
-			echelleZoom = -(echelleZoom);
-			notify();
-		}
 	}
 	
 }

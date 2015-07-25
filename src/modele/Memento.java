@@ -28,21 +28,33 @@ import java.awt.Point;
 */
 public class Memento {
 	
-	private double zoom;
-	private Point translation;
+	private double echelleZoom;
+	private Point coordTranslation;
 	
 	/**
 	 * Constructeur
 	 */
-	public Memento(double zoom, Point translation) {
-		this.zoom = zoom;
-		this.translation = translation;
+	public Memento(double nvEchelleZoom, Point nvCoordTranslation) {
+		echelleZoom = nvEchelleZoom;
+		coordTranslation = nvCoordTranslation;
 	}
 	
-	public double getZoom() {
-		return zoom;
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	public double getEchelleZoom() {
+		return echelleZoom;
 	}
-	public Point getTranslation() {
-		return translation;
+	
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	public Point getCoordTranslation() {
+		return coordTranslation;
 	}
+	
 }

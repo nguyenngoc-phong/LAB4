@@ -33,8 +33,7 @@ import javax.swing.Action;
 public class GestionActions {
 	
 	private GestionActions uniqueInstance;
-	private ArrayList<Action> tabActionsA;
-	private ArrayList<Action> tabActionsB;
+	private ArrayList<Action> tabActionsA, tabActionsB;
 	private final int MAX_ACTIONS = 10;
 	
 	/**
@@ -60,19 +59,18 @@ public class GestionActions {
 	 * @param
 	 * @return
 	 */
-	public void ajouterAction(char indexPerspective, char typeAction, Object param, PropertyChangeListener observateur) {
-		Action nvAction = null;
+	public void ajouterAction(char indexPerspective, char typeAction, Object param, PropertyChangeListener unObservateur) {
+		Action nvAction;
 		
 		switch(typeAction) {
-			case('T'):	nvAction = new Translation(indexPerspective, (Point) param);
+			case('T'):	nvAction = new Translation(indexPerspective, (Point) param, unObservateur);
 				break;
-			case('Z'):	nvAction = new Zoom(indexPerspective, (double) param);
+			case('Z'):	nvAction = new Zoom(indexPerspective, (double) param, unObservateur);
 				break;
+			default: nvAction = null;
 		}
 		
 		if(nvAction != null) {
-			
-			nvAction.addPropertyChangeListener(observateur);
 			
 			switch(indexPerspective) {
 				case('A'):
@@ -90,6 +88,8 @@ public class GestionActions {
 					};
 					break;
 			}
+			
+			nvAction.actionPerformed(null);
 		}
 	}
 	
@@ -99,25 +99,42 @@ public class GestionActions {
 	 * @return
 	 */
 	public void enleverDerniereAction(char indexPerspective) {
-		Action derniereAction;
+		
+		Action derniereAction = null;
 		
 		switch(indexPerspective) {
 			case('A'):
-				if(tabActionsA.size() > 0) {
+				if(tabActionsA.size() != 0) {
 					derniereAction = tabActionsA.get(tabActionsA.size() - 1);
-					derniereAction.setEnabled(false);
 					tabActionsA.remove(derniereAction);
 					tabActionsA.trimToSize();
 				}
 				break;
 			case('B'):
-				if(tabActionsB.size() > 0) {
+				if(tabActionsB.size() != 0) {
 					derniereAction = tabActionsB.get(tabActionsB.size() - 1);
-					derniereAction.setEnabled(false);
 					tabActionsB.remove(derniereAction);
 					tabActionsB.trimToSize();
 				}
 				break;
+		}
+		
+		if(derniereAction != null) {
+			
+			derniereAction.setEnabled(false);
+			
+			if(derniereAction instanceof Translation) {
+				Point coordTranslation = (Point) derniereAction.getValue("coordTranslation");
+				coordTranslation = new Point(-(coordTranslation.x), -(coordTranslation.y));
+				derniereAction.putValue("coordTranslation", coordTranslation);
+			}
+			else if(derniereAction instanceof Zoom) {
+				double echelleZoom = (double) derniereAction.getValue("echelleZoom");
+				echelleZoom = -(echelleZoom);
+				derniereAction.putValue("echelleZoom", echelleZoom);
+			}
+			
+			derniereAction.actionPerformed(null);
 		}
 	}
 	

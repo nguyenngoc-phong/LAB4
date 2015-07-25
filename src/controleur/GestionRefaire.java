@@ -30,28 +30,30 @@ import modele.Memento;
 */
 public class GestionRefaire {
 	
-	private ArrayList<Memento> tabMementoA;
-	private ArrayList<Memento> tabMementoB;
-	private int indexMementoA;
-	private int indexMementoB;
-	private int indexDernierMementoA;
-	private int indexDernierMementoB;
+	private ArrayList<Memento> tabMementoA, tabMementoB;
+	private int indexMementoA, indexDernierMementoA, indexMementoB, indexDernierMementoB;
 	private final int MAX_MEMENTOS = 10;
 	
 	/**
 	 * Constructeur
 	 */
 	public GestionRefaire() {
-		indexMementoA = 0;
-		indexMementoB = 0;
-		indexDernierMementoA = 0;
-		indexDernierMementoB = 0;
+		tabMementoA = new ArrayList<Memento>();
+		tabMementoB = new ArrayList<Memento>();
+		indexDernierMementoA = indexMementoA = 0;
+		indexDernierMementoB = indexMementoB = 0;
 	}
 	
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
 	public void ajouterMemento(char indexPerspective, Memento nvMemento) {
 		
 		switch(indexPerspective) {
 			case('A'):
+				
 				if(indexMementoA < indexDernierMementoA) {
 					tabMementoA = (ArrayList<Memento>) tabMementoA.subList(0, indexMementoA + 1);
 				}
@@ -65,9 +67,11 @@ public class GestionRefaire {
 				else {
 					indexDernierMementoA = ++indexMementoA;
 				}
+				
 				break;
 			case('B'):
-				if(indexMementoB < indexDernierMementoA) {
+				
+				if(indexMementoB < indexDernierMementoB) {
 					tabMementoB = (ArrayList<Memento>) tabMementoB.subList(0, indexMementoB + 1);
 				}
 				
@@ -80,10 +84,16 @@ public class GestionRefaire {
 				else {
 					indexDernierMementoB = ++indexMementoB;
 				}
+				
 				break;
 		}
 	}
 	
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
 	public Memento mementoPrecedent(char indexPerspective) {
 		
 		switch(indexPerspective) {
@@ -101,7 +111,12 @@ public class GestionRefaire {
 		
 		return null;
 	}
-	
+
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
 	public Memento mementoSuivant(char indexPerspective) {
 		
 		switch(indexPerspective) {
@@ -119,4 +134,5 @@ public class GestionRefaire {
 	
 		return null;
 	}
+	
 }

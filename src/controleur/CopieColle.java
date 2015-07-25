@@ -30,7 +30,15 @@ public class CopieColle {
 	
 	private ICopie iCopie;
 	private Colle colle;
-
+	
+	/**
+	 * Constructeur
+	 */
+	public CopieColle() {
+		iCopie = null;
+		colle = null;
+	}
+	
 	/**
 	 * Description de la méthode.
 	 * @param
