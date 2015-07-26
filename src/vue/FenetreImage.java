@@ -19,6 +19,16 @@ Historique des modifications
 
 package vue;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
+
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import modele.Perspective;
+import modele.Vignette;
 import controleur.Controleur;
 
 /**
@@ -26,7 +36,7 @@ import controleur.Controleur;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class FenetreImage {
+public class FenetreImage extends JComponent {
 	
 	private PanelVignette panelVignette;
 	private PanelPerspective panelPerspectiveA;
@@ -35,10 +45,21 @@ public class FenetreImage {
 	/**
 	 * Constructeur
 	 */
-	public FenetreImage(Controleur controleur) {
-		this.panelVignette = new PanelVignette();
-		this.panelPerspectiveA = new PanelPerspective(controleur);
-		this.panelPerspectiveB = new PanelPerspective(controleur);
+	public FenetreImage(Controleur controleur, Vignette vignette, Perspective perspectiveA, Perspective perspectiveB) {
+		panelVignette = new PanelVignette();
+		panelPerspectiveA = new PanelPerspective(controleur, 'A');
+		panelPerspectiveB = new PanelPerspective(controleur, 'B');
+		
+		vignette.addObserver(panelVignette);
+		perspectiveA.addObserver(panelPerspectiveA);
+		perspectiveB.addObserver(panelPerspectiveB);
+		
+		this.setLayout(new GridLayout(2, 1));
+		this.add(panelVignette);
+		JPanel panelPerspective = new JPanel(new GridLayout(1, 2));
+		panelPerspective.add(panelPerspectiveA);
+		panelPerspective.add(panelPerspectiveB);
+		this.add(panelPerspective);
 	}
 	
 }

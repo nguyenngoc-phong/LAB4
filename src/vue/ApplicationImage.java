@@ -30,22 +30,27 @@ import controleur.Controleur;
 */
 public class ApplicationImage {
 	
-	private Vignette vignette;
-	private Perspective perspectiveA;
-	private Perspective perspectiveB;
-	private FenetrePrincipale fenetre;
-	private Controleur controleur;
+	/**
+	 * Méthode main() de l'application.
+	 * @param
+	 */
+	public static synchronized void main(String[] args) {
+		ApplicationImage application = new ApplicationImage();
+	}
 	
+	/**
+	 * Constructeur
+	 */
 	public ApplicationImage() {
 		
-		vignette = new Vignette();
+		Vignette vignette = new Vignette();
 		
-		perspectiveA = new Perspective();
-		perspectiveB = new Perspective();
+		Perspective perspectiveA = new Perspective();
+		Perspective perspectiveB = new Perspective();
 		
-		controleur = new Controleur(vignette, perspectiveA, perspectiveB);
+		Controleur controleur = new Controleur(vignette, perspectiveA, perspectiveB);
 		
-		fenetre = new FenetrePrincipale(controleur);
+		FenetrePrincipale fenetre = new FenetrePrincipale(controleur, vignette, perspectiveA, perspectiveB);
 	}
 	
 }

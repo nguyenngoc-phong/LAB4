@@ -30,7 +30,6 @@ import java.awt.Point;
 public class Perspective extends Vignette {
 	
 	private static final long serialVersionUID = -2298967121346240971L;
-	private Image image;
 	private double echelleZoom;
 	private Point coordTranslation;
 	
@@ -38,7 +37,7 @@ public class Perspective extends Vignette {
 	 * Constructeur
 	 */
 	public Perspective() {
-		image = null;
+		super();
 		echelleZoom = 0;
 		coordTranslation = null;
 	}
@@ -61,26 +60,8 @@ public class Perspective extends Vignette {
 	public void setMemento(Memento unMemento) {
 		echelleZoom = unMemento.getEchelleZoom();
 		coordTranslation = unMemento.getCoordTranslation();
-		notify();
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	public Image getImage() {
-		return image;
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	public void setImage(Image nvImage) {
-		image = nvImage;
-		notify();
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -99,7 +80,8 @@ public class Perspective extends Vignette {
 	 */
 	public void setEchelleZoom(double nvEchelleZoom) {
 		echelleZoom = nvEchelleZoom;
-		notify();
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -118,7 +100,8 @@ public class Perspective extends Vignette {
 	 */
 	public void setCoordTranslation(Point nvCoordTranslation) {
 		coordTranslation = nvCoordTranslation;
-		notify();
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 }

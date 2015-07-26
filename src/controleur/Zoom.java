@@ -20,9 +20,11 @@ Historique des modifications
 package controleur;
 
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 /**
@@ -30,23 +32,30 @@ import javax.swing.Action;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class Zoom implements Action {
+public class Zoom extends AbstractAction {
 
 	private char indexPerspective;
 	private double echelleZoom;
-	private ArrayList<PropertyChangeListener> tabObservateurs;
-	private boolean enabled;
 	
 	/**
 	 * Constructeur
 	 * @param
 	 * @return
 	 */
-	public Zoom(char nvIndexPerspective, double nvEchelleZoom, PropertyChangeListener unObservateur) {
+	public Zoom(char nvIndexPerspective, PropertyChangeListener unObservateur) {
 		indexPerspective = nvIndexPerspective;
-		echelleZoom = nvEchelleZoom;
-		tabObservateurs = new ArrayList<PropertyChangeListener>();
-		tabObservateurs.add(unObservateur);
+		this.addPropertyChangeListener(unObservateur);
+		
+		//
+		Controleur uncCC = new Controleur(null, null, null) {
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				System.out.println(e);
+			}
+		};
+		this.addPropertyChangeListener(uncCC);
+		//
+		
 		enabled = true;
 	}
 	
@@ -57,17 +66,6 @@ public class Zoom implements Action {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		notify();
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener arg0) {
-		tabObservateurs.add(arg0);
 	}
 
 	/**
@@ -94,16 +92,6 @@ public class Zoom implements Action {
 	 * @return
 	 */
 	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
 	public void putValue(String arg0, Object arg1) {
 		if(arg0.equals("indexPerspective")) {
 			indexPerspective = (char) arg1;
@@ -111,26 +99,7 @@ public class Zoom implements Action {
 		else if(arg0.equals("echelleZoom")) {
 			echelleZoom = (double) arg1;
 		}
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
-	public void removePropertyChangeListener(PropertyChangeListener arg0) {
-		tabObservateurs.remove(arg0);
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
-	public void setEnabled(boolean arg0) {
-		enabled = arg0;
+		firePropertyChange("Z", indexPerspective, echelleZoom);
 	}
 	
 }

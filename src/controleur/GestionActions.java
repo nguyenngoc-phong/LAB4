@@ -23,6 +23,7 @@ import java.awt.Point;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 /**
@@ -32,16 +33,16 @@ import javax.swing.Action;
 */
 public class GestionActions {
 	
-	private GestionActions uniqueInstance;
-	private ArrayList<Action> tabActionsA, tabActionsB;
+	private static GestionActions uniqueInstance;
+	private ArrayList<AbstractAction> tabActionsA, tabActionsB;
 	private final int MAX_ACTIONS = 10;
 	
 	/**
 	 * Constructeur
 	 */
 	private GestionActions() {
-		tabActionsA = new ArrayList<Action>();
-		tabActionsB = new ArrayList<Action>();
+		tabActionsA = new ArrayList<AbstractAction>();
+		tabActionsB = new ArrayList<AbstractAction>();
 	}
 	
 	/**
@@ -49,8 +50,10 @@ public class GestionActions {
 	 * @param
 	 * @return
 	 */
-	public GestionActions getInstance() {
-		uniqueInstance = new GestionActions();
+	public static GestionActions getInstance() {
+		if(uniqueInstance == null) {
+			uniqueInstance = new GestionActions();
+		}
 		return uniqueInstance;
 	}
 	
@@ -60,12 +63,16 @@ public class GestionActions {
 	 * @return
 	 */
 	public void ajouterAction(char indexPerspective, char typeAction, Object param, PropertyChangeListener unObservateur) {
-		Action nvAction;
+		AbstractAction nvAction;
 		
 		switch(typeAction) {
-			case('T'):	nvAction = new Translation(indexPerspective, (Point) param, unObservateur);
+			case('T'):
+				nvAction = new Translation(indexPerspective, unObservateur);
+				nvAction.putValue("coordTranslation", (Point) param);
 				break;
-			case('Z'):	nvAction = new Zoom(indexPerspective, (double) param, unObservateur);
+			case('Z'):
+				nvAction = new Zoom(indexPerspective, unObservateur);
+				nvAction.putValue("echelleZoom", (double) param);
 				break;
 			default: nvAction = null;
 		}
@@ -88,8 +95,6 @@ public class GestionActions {
 					};
 					break;
 			}
-			
-			nvAction.actionPerformed(null);
 		}
 	}
 	
@@ -100,7 +105,7 @@ public class GestionActions {
 	 */
 	public void enleverDerniereAction(char indexPerspective) {
 		
-		Action derniereAction = null;
+		AbstractAction derniereAction = null;
 		
 		switch(indexPerspective) {
 			case('A'):
@@ -133,8 +138,6 @@ public class GestionActions {
 				echelleZoom = -(echelleZoom);
 				derniereAction.putValue("echelleZoom", echelleZoom);
 			}
-			
-			derniereAction.actionPerformed(null);
 		}
 	}
 	

@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 /**
@@ -31,23 +32,19 @@ import javax.swing.Action;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class Translation implements Action {
+public class Translation extends AbstractAction {
 
 	private char indexPerspective;
 	private Point coordTranslation;
-	private ArrayList<PropertyChangeListener> tabObservateurs;
-	private boolean enabled;
 	
 	/**
 	 * Constructeur
 	 * @param
 	 * @return
 	 */
-	public Translation(char nvIndexPerspective, Point nvCoordTranslation, PropertyChangeListener unObservateur) {
+	public Translation(char nvIndexPerspective, PropertyChangeListener unObservateur) {
 		indexPerspective = nvIndexPerspective;
-		coordTranslation = nvCoordTranslation;
-		tabObservateurs = new ArrayList<PropertyChangeListener>();
-		tabObservateurs.add(unObservateur);
+		this.addPropertyChangeListener(unObservateur);
 		enabled = true;
 	}
 	
@@ -56,19 +53,7 @@ public class Translation implements Action {
 	 * @param
 	 * @return
 	 */
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		notify();
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener arg0) {
-		tabObservateurs.add(arg0);
 	}
 
 	/**
@@ -95,16 +80,6 @@ public class Translation implements Action {
 	 * @return
 	 */
 	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
 	public void putValue(String arg0, Object arg1) {
 		if(arg0.equals("indexPerspective")) {
 			indexPerspective = (char) arg1;
@@ -112,26 +87,7 @@ public class Translation implements Action {
 		else if(arg0.equals("coordTranslation")) {
 			coordTranslation = (Point) arg1;
 		}
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
-	public void removePropertyChangeListener(PropertyChangeListener arg0) {
-		tabObservateurs.remove(arg0);
-	}
-
-	/**
-	 * Description de la méthode.
-	 * @param
-	 * @return
-	 */
-	@Override
-	public void setEnabled(boolean arg0) {
-		enabled = arg0;
+		firePropertyChange("Z", indexPerspective, coordTranslation);
 	}
 	
 }

@@ -20,6 +20,7 @@ Historique des modifications
 package modele;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Observable;
 
@@ -31,7 +32,7 @@ import java.util.Observable;
 public class Vignette extends Observable implements Serializable {
 	
 	private static final long serialVersionUID = -2291997349113388136L;
-	private Image image;
+	private BufferedImage image;
 	
 	/**
 	 * Constructeur
@@ -45,7 +46,7 @@ public class Vignette extends Observable implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public Image getImage() {
+	public BufferedImage getImage() {
 		return image;
 	}
 	
@@ -54,9 +55,10 @@ public class Vignette extends Observable implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public void setImage(Image nvImage) {
+	public void setImage(BufferedImage nvImage) {
 		image = nvImage;
-		notify();
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 }

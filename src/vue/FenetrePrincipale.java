@@ -19,6 +19,14 @@ Historique des modifications
 
 package vue;
 
+import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
+import modele.Perspective;
+import modele.Vignette;
 import controleur.Controleur;
 
 /**
@@ -26,17 +34,24 @@ import controleur.Controleur;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class FenetrePrincipale {
+public class FenetrePrincipale extends JFrame {
 	
-	private MenuFenetre menu;
 	private FenetreImage fenetreImage;
 	
 	/**
 	 * Constructeur
 	 */
-	public FenetrePrincipale(Controleur controleur) {
-		this.menu = new MenuFenetre(controleur);
-		this.fenetreImage = new FenetreImage(controleur);
+	public FenetrePrincipale(Controleur controleur, Vignette vignette, Perspective perspectiveA, Perspective perspectiveB) {
+		final MenuFenetre menu = new MenuFenetre(controleur);
+		fenetreImage = new FenetreImage(controleur, vignette, perspectiveA, perspectiveB);
+
+		this.setTitle("Application Image");
+		this.setLayout(new BorderLayout());
+		this.add(menu, BorderLayout.NORTH); 
+		this.add(fenetreImage, BorderLayout.CENTER);
+		this.pack();
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 }

@@ -19,9 +19,14 @@ Historique des modifications
 
 package vue;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.JPanel;
 
 import modele.Vignette;
 
@@ -30,9 +35,24 @@ import modele.Vignette;
 * @author Ngoc-Phong Nguyen
 * @date 2015/07/17
 */
-public class PanelVignette implements Observer {
+public class PanelVignette extends JPanel implements Observer {
 	
-	private Image image;
+	protected BufferedImage image;
+	private Dimension dimension;
+	
+	public PanelVignette() {
+		image = null;
+		dimension = new Dimension(100, 100);
+	}
+	
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	public void paintComponent(Graphics g) {
+		g.drawImage(image, 0, 0, null);
+	}
 	
 	/**
 	 * Description de la méthode.
@@ -41,7 +61,18 @@ public class PanelVignette implements Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Écrire le code de la méthode.
+		image = ((Vignette) arg0).getImage();
+		repaint();
+	}
+	
+	/**
+	 * Description de la méthode.
+	 * @param
+	 * @return
+	 */
+	@Override
+	public Dimension getPreferredSize() {
+		return dimension;
 	}
 	
 }
